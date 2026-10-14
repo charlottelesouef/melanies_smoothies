@@ -38,24 +38,24 @@ if ingredients_list:
     search_on=pd_df.loc[pd_df['FRUIT_NAME'] == fruit_chosen, 'SEARCH_ON'].iloc[0]
     st.write('The search value for ', fruit_chosen,' is ', search_on, '.')
     
-    st.subheader(fruit_chosen + 'Nutrition Information')
+    st.subheader(fruit_chosen + ' Nutrition Information')
     try:
       smoothiefroot_response = requests.get(f"https://my.smoothiefroot.com/api/fruit/{search_on}")
       sf_df = st.dataframe(data=smoothiefroot_response.json(), use_container_width=True)
     except:
       st.write('The API Call to SmoothieFroot did not work.')
     
-    # st.write(ingredients_string)
-    my_insert_stmt = """ insert into smoothies.public.orders(ingredients, name_on_order)
+  # st.write(ingredients_string)
+  my_insert_stmt = """ insert into smoothies.public.orders(ingredients, name_on_order)
                     values ('""" + ingredients_string + """', '"""+name_on_order+"""')"""
     
-    # st.write(my_insert_stmt)
+  # st.write(my_insert_stmt)
     
-    time_to_import = st.button('Submit Order')
+  time_to_import = st.button('Submit Order')
     
-    if time_to_import:
-      session.sql(my_insert_stmt).collect()
-      st.success('Your smoothie is ordered, '+name_on_order+ '!', icon='✅')
+  if time_to_import:
+    session.sql(my_insert_stmt).collect()
+    st.success('Your smoothie is ordered, '+name_on_order+ '!', icon='✅')
 
 
 
