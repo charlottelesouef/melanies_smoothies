@@ -42,7 +42,7 @@ if ingredients_list:
     try:
       smoothiefroot_response = requests.get(f"https://my.smoothiefroot.com/api/fruit/{search_on}")
       sf_df = st.dataframe(data=smoothiefroot_response.json(), use_container_width=True)
-    else:
+    except:
       st.write('The API Call to SmoothieFroot did not work.')
     
     # st.write(ingredients_string)
